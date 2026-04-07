@@ -1,0 +1,126 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "langchain-router"
+version = "0.1.4"
+description = "Cost-aware model routing for LangChain agents based on task phase"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10.0,<4.0.0"
+authors = [
+    { name = "Johan" },
+]
+keywords = [
+    "langchain",
+    "middleware",
+    "agent",
+    "model-routing",
+    "cost-optimization",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Typing :: Typed",
+]
+dependencies = [
+    "langchain>=1.2,<2.0.0",
+    "langchain-core>=1.2.21,<2.0.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8,<9",
+    "pytest-asyncio>=0.24,<1",
+    "hypothesis>=6.100,<7",
+]
+lint = [
+    "ruff>=0.15.0,<0.16.0",
+]
+typing = [
+    "mypy>=1.10.0,<2.0.0",
+]
+
+[project.urls]
+Repository = "https://github.com/johanity/langchain-router"
+Issues = "https://github.com/johanity/langchain-router/issues"
+Twitter = "https://x.com/johanity"
+Slack = "https://www.langchain.com/join-community"
+
+[tool.hatch.build.targets.wheel]
+packages = ["langchain_router"]
+
+[tool.ruff]
+target-version = "py310"
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 100
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "COM812",
+    "ISC001",
+    "PERF203",
+    "SIM105",
+    "FIX",
+    "TD",
+    "C901",
+    "PLR0912",
+    "PLR0913",
+    "PLR0914",
+    "PLR0915",
+    "ARG001",
+    "ARG002",
+    "ANN401",
+    "BLE001",
+    "PLR2004",
+    "TC",
+    "PLC0415",
+    "PT011",
+    "PT013",
+    "TRY",
+    "PLW",
+    "PLE",
+]
+unfixable = ["B028"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+ignore-var-parameters = true
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/**/*.py" = [
+    "S101",
+    "S311",
+    "SLF001",
+    "D",
+]
+"examples/**/*.py" = [
+    "INP001",
+    "T201",
+    "D",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.10"
+disallow_untyped_defs = true
+
+[tool.coverage.run]
+omit = ["tests/*"]
